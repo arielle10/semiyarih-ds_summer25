@@ -92,10 +92,29 @@ summary(model)
 
 -   **Problem 3**: Find the 10 days of the year that have the highest median departure delay, then select all flights from those 10 days.
 
+10 days of the year with the highest median departure delay: 2013-03-08, 2013-07-01, 2013-07-23, 2013-12-17, 2013-06-13, 2013-05-08, 2013-04-12, 2013-06-25, 2013-06-28, 2013-12-23.
 
+```{r}
+library(lubridate)
+```
 
+```{r}
 
+#individualize the dates
+flights_date <- flights |>
+  mutate(date = make_date(year, month, day))
 
+#medians of departure delays and the 10 days of the year with the highest medians 
+top_10_days <- flights_date |>
+  group_by(date) |>
+  summarise(median_dep_delay = median(dep_delay, na.rm = TRUE)) |>
+  arrange(desc(median_dep_delay)) |>
+  slice_head(n = 10)
+
+#all flights from those 10 days 
+flights_top_10_dates <- flights_date |>
+  semi_join(top_10_days, by = "date")
+```
 
 
 
