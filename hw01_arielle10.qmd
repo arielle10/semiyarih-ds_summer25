@@ -57,6 +57,48 @@ pacman::p_load(pacman, tidyverse,
 
 -   **Problem 2**: Is there a relationship between the age of a plane and its delays?
 
+Based on the gg plot, there is no clear visible trend showing that older planes are more delayed. Most of the flights, regardless of age, have arrival delays between 100 and 400 minutes. There are a few outliers closer to 1000 minutes across the ages 10-25 years. Plane ages about 25 years+ do not have these more extreme outliers and still appear to perform similarly to younger planes in terms of delays. 
+
+According to the model, plane age is statistically significant with a p-val < .05, however, the size of the effect is small- for every year on a planes age, the arrival delay decreases by .124 minutes. Additionally, the r-squared value is extremely low, .03%, meaning that only .03% of the variability in arrival delay is explained by plane age. In all, although plane age is statistically significant, its effect is small and the model explains little no none of the variance. Therefore, plane age seems to have no relationship with arrival delays. 
+
+```{r}
+library(pacman)
+pacman::p_load(pacman, tidyverse,
+               nycflights13)
+
+view(flights)
+view(planes)
+```
+
+```{r}
+#merge the data sets and create a variable for the age of the plane
+flights_planes <- flights |>
+  left_join(planes, by = "tailnum") |>
+  mutate(plane_age = year.x - year.y) |>
+  filter(!is.na(plane_age))
+```
+
+```{r}
+ggplot(flights_planes, aes(x = plane_age, y = arr_delay)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = TRUE, color = "plum") +
+  labs(title = "Plane Age and Arrival Delay",
+       x = "Plane Age",
+       y = "Delay")
+
+model <- lm(arr_delay ~ plane_age, data = flights_planes)
+summary(model)
+```
 
 -   **Problem 3**: Find the 10 days of the year that have the highest median departure delay, then select all flights from those 10 days.
+
+
+
+
+
+
+
+
+
+
 
