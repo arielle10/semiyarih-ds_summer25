@@ -124,23 +124,37 @@ date_info <- data.frame(date= date_seq, year= year_vals, quarter= quarter_vals, 
 head(date_info, 10)
 ```
 
-
-
-
-
 ### Question 6:
 
 Given the following dates, compute the difference in **months** and **weeks** between each consecutive pair.
 
-``` r
-sample_dates <- c("2018-03-15", "2020-07-20", "2023-01-10", "2025-09-05")
+``` {r}
+#date vector 
+sample_dates <- ymd(c("2018-03-15", "2020-07-20", "2023-01-10", "2025-09-05"))
+
+#the differences between the dates
+date_diffs <- diff(sample_dates)
+
+#difference in weeks
+weeks_diff <- as.numeric(date_diffs, units = "weeks")
+
+#difference in months using the average number of days per month
+months_diff <- as.numeric(date_diffs, units = "days") / 30.44
+
+#difference in weeks between each given date 
+names(weeks_diff) <- c("2018-2020", "2020-2023", "2023-2025")
+weeks_diff
+
+#difference in months between each given date
+names(months_diff) <- c("2018-2020", "2020-2023", "2023-2025")
+months_diff
 ```
 
 ### Question 7: Higher-Order Functions with purrr
 
 Using `map()` and `map_dbl()`, compute the **mean**, **median**, and **standard deviation** for each numeric vector in the following list:
 
-``` r
+``` {r}
 num_lists <- list(c(4, 16, 25, 36, 49), c(2.3, 5.7, 8.1, 11.4), c(10, 20, 30, 40, 50))
 ```
 
@@ -150,7 +164,7 @@ num_lists <- list(c(4, 16, 25, 36, 49), c(2.3, 5.7, 8.1, 11.4), c(10, 20, 30, 40
 
 Given a list of mixed date formats, use `map()` and `possibly()` from `purrr` to safely convert them to **Date** format and extract the **month name**.
 
-``` r
+``` {r}
 date_strings <- list("2023-06-10", "2022/12/25", "15-Aug-2021", "InvalidDate")
 ```
 
