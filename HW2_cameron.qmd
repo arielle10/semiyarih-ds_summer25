@@ -177,7 +177,18 @@ final_stats
 Given a list of mixed date formats, use `map()` and `possibly()` from `purrr` to safely convert them to **Date** format and extract the **month name**.
 
 ``` {r}
+date_strings <- list("2023-06-10", "2022/12/25", "15-Aug-2021", "InvalidDate")
 
+#function that checks for multiple formats of dates, made safe using possibly 
+convert_safe <- possibly(function(x) {parse_date_time(x, orders = c("ymd", "Ymd","d-b-Y", "Y/m/d"))}, otherwise = NA)
+
+#convert the strings to Date format
+dates <- map(date_strings, convert_safe)
+
+#extract the month name
+month_names <- map_chr(dates, ~ ifelse(is.na(.x), NA_character_, as.character(month(.x, label = TRUE, abbr = FALSE))))
+
+month_names
 ```
 
 
