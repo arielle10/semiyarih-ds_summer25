@@ -103,12 +103,27 @@ years[ (years %% 4 == 0 & years %% 100 != 0) | (years %% 400 == 0)]
 
 ```
 
-
 ## Advanced Date Manipulation with lubridate
 
 ### Question 5:
 
 Generate a sequence of dates from **January 1, 2015** to **December 31, 2025**, spaced by every **two months**. Extract the **year**, **quarter**, and **ISO week number** for each date.
+
+```{r}
+#sequece of dates given the time frame spaced by every two months 
+date_seq <- seq(ymd("2015-01-01"), ymd("2025-12-31"), by = "2 months")
+
+#extracts the year, quarter, and ISO week # for each date in the sequence
+year_vals    <- year(date_seq)
+quarter_vals <- quarter(date_seq)
+iso_week_vals <- isoweek(date_seq)
+
+#puts the variables into an organized data frame for easier readability 
+date_info <- data.frame(date= date_seq, year= year_vals, quarter= quarter_vals, iso_week = iso_week_vals)
+
+head(date_info, 10)
+```
+
 
 
 
