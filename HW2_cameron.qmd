@@ -64,11 +64,11 @@ round(2.345548, 1)
 
 Use and show R coding to calculate the standard deviation for each variable of the data table `mtcars` using the `Special For Loop Method`, which includes three components:
 
-- Output – an object to store the results
+-   Output – an object to store the results
 
-- Sequence – the set of items to loop through
+-   Sequence – the set of items to loop through
 
-- Body – the operations performed in each iteration
+-   Body – the operations performed in each iteration
 
 ```{r}
 data(mtcars)
@@ -93,7 +93,8 @@ std_devs
 ```
 
 ### Question 4:
-Write only one line of the code to return only the leap years fo years 2024, 3021, 2000 or 1800, 800, 5050, 600 and 7156.  using subsetting with `[]` and without using built-in functions.
+
+Write only one line of the code to return only the leap years fo years 2024, 3021, 2000 or 1800, 800, 5050, 600 and 7156. using subsetting with `[]` and without using built-in functions.
 
 ```{r}
 years <- c(2024, 3021, 2000, 1800, 800, 5050, 600, 7156)
@@ -128,7 +129,7 @@ head(date_info, 10)
 
 Given the following dates, compute the difference in **months** and **weeks** between each consecutive pair.
 
-``` {r}
+```{r}
 #date vector 
 sample_dates <- ymd(c("2018-03-15", "2020-07-20", "2023-01-10", "2025-09-05"))
 
@@ -154,7 +155,7 @@ months_diff
 
 Using `map()` and `map_dbl()`, compute the **mean**, **median**, and **standard deviation** for each numeric vector in the following list:
 
-``` {r}
+```{r}
 num_lists <- list(c(4, 16, 25, 36, 49), c(2.3, 5.7, 8.1, 11.4), c(10, 20, 30, 40, 50))
 
 #compute the means of the numeric vectors
@@ -176,7 +177,7 @@ final_stats
 
 Given a list of mixed date formats, use `map()` and `possibly()` from `purrr` to safely convert them to **Date** format and extract the **month name**.
 
-``` {r}
+```{r}
 date_strings <- list("2023-06-10", "2022/12/25", "15-Aug-2021", "InvalidDate")
 
 #function that checks for multiple formats of dates, made safe using possibly 
@@ -191,23 +192,20 @@ month_names <- map_chr(dates, ~ ifelse(is.na(.x), NA_character_, as.character(mo
 month_names
 ```
 
-
 ## Submission
 
-* Save your Quarto file after completing each problem, render it, then stage and commit the changes.\
+-   Save your Quarto file after completing each problem, render it, then stage and commit the changes.\
 
-* Include well-commented code and clear explanations.\
+-   Include well-commented code and clear explanations.\
 
-* Make at least **one commit per question**.\
+-   Make at least **one commit per question**.\
 
-* Submit the rendered file to **Canvas** and push it to your **GitHub repository**.\
+-   Submit the rendered file to **Canvas** and push it to your **GitHub repository**.\
 
-
-* Provide the link to your GitHub repository in the **Canvas gradebook** as a text submission.\
+-   Provide the link to your GitHub repository in the **Canvas gradebook** as a text submission.\
 
 🔹 **Each problem is worth 10 points.**\
 
 🔹 You will receive an additional **20 points** if you correctly push your completed file to GitHub and make at least one commit for each question.\
-
 
 **Good luck!**
