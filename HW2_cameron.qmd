@@ -34,7 +34,7 @@ z_score <- function(x, mean, sd) {(x - mean) / sd}
 ```
 
 ```{r}
-#using the function for the following problem
+#using the function with the given problem
 z_score(x = 25.77, mean = 23.54, sd = 2.442)
 ```
 
@@ -43,6 +43,23 @@ z_score(x = 25.77, mean = 23.54, sd = 2.442)
 Write a function to calculate the natural log of a number multiplied by the common log of the same number divided by the cube root of a given prime number, $\dfrac{\ln x \times \log x }{\sqrt[3]{p}}$.\
 Use your function to find the answer if the number to be used for both log expressions is 32 and the given prime number is 11, $x = 32, \;\;p=11$.\
 Also use R code to round your answer to the nearest tenth
+
+answer= 2.3
+
+```{r}
+#function that satisfies the prompt given
+
+log_equation <- function(x,p) {log(x) * log10(x)/ p^(1/3)}
+```
+
+```{r}
+#using the function with the given problem
+
+log_equation(x= 32, p= 11)
+
+round(2.345548, 1)
+```
+
 
 ### Question 3
 
