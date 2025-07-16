@@ -92,11 +92,16 @@ std_devs
 
 ```
 
-
-
 ### Question 4:
 Write only one line of the code to return only the leap years fo years 2024, 3021, 2000 or 1800, 800, 5050, 600 and 7156.  using subsetting with `[]` and without using built-in functions.
 
+```{r}
+years <- c(2024, 3021, 2000, 1800, 800, 5050, 600, 7156)
+
+#leap year rules: the year is divisible by 4 and not divisible by 100 or the year is divisible by 400
+years[ (years %% 4 == 0 & years %% 100 != 0) | (years %% 400 == 0)]
+
+```
 
 
 ## Advanced Date Manipulation with lubridate
