@@ -60,7 +60,6 @@ log_equation(x= 32, p= 11)
 round(2.345548, 1)
 ```
 
-
 ### Question 3
 
 Use and show R coding to calculate the standard deviation for each variable of the data table `mtcars` using the `Special For Loop Method`, which includes three components:
@@ -70,6 +69,29 @@ Use and show R coding to calculate the standard deviation for each variable of t
 - Sequence – the set of items to loop through
 
 - Body – the operations performed in each iteration
+
+```{r}
+data(mtcars)
+```
+
+```{r}
+#output component, stores the standard deviations 
+std_devs <- numeric(ncol(mtcars))
+
+#gives a name to each item in std_devs so that the sd is labeled with the corresponding column name 
+names(std_devs) <- colnames(mtcars)
+
+#sequence component, loops through each variable in mtcars
+for (var in colnames(mtcars)) 
+
+  #body component, finds the standard deviation for a given column
+  {  std_devs[var] <- sd(mtcars[[var]])}
+
+#returns the standard deviations
+std_devs
+
+```
+
 
 
 ### Question 4:
