@@ -156,16 +156,28 @@ Using `map()` and `map_dbl()`, compute the **mean**, **median**, and **standard 
 
 ``` {r}
 num_lists <- list(c(4, 16, 25, 36, 49), c(2.3, 5.7, 8.1, 11.4), c(10, 20, 30, 40, 50))
+
+#compute the means of the numeric vectors
+means <- map_dbl(num_lists, mean)
+
+#compute the medians of the numeric vectors 
+medians <- map_dbl(num_lists, median)
+
+#compute the standard deviations of the numeric vectors 
+sds <- map_dbl(num_lists, sd)
+
+#put variables into a data frame to better organzie results
+final_stats <- data.frame(mean = means, median = medians, sd = sds)
+final_stats
+
 ```
-
-
 
 ### Question 8: Combining lubridate and purrr
 
 Given a list of mixed date formats, use `map()` and `possibly()` from `purrr` to safely convert them to **Date** format and extract the **month name**.
 
 ``` {r}
-date_strings <- list("2023-06-10", "2022/12/25", "15-Aug-2021", "InvalidDate")
+
 ```
 
 
