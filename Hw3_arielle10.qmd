@@ -1,0 +1,140 @@
+---
+title: "WebSraping-SQL"
+format: html
+editor: visual
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo       = TRUE, 
+                      fig.align  = "center",
+                      fig.height = 3, fig.width = 4)
+ggplot2::theme_set(ggplot2::theme_bw() + ggplot2::theme(strip.background = ggplot2::element_rect(fill = "white")))
+```
+
+## Instructions
+
+Complete the following exercises using the appropriate packages in R. Ensure that your solutions are optimized and use functional programming principles where applicable.
+
+1.  Load the necessary libraries.
+2.  Answer each question in separate R code chunks.
+3.  Provide detailed explanations for your approach.
+4.  Submit the rendered HTML file.
+
+
+```{r}
+  if (!require("pacman")) install.packages("pacman")
+
+# Load contributed packages with pacman
+pacman::p_load(pacman,rvest, dplyr, tidyverse, xml2,janitor, DBI, duckdb, nycflights13)
+```
+
+## WebScraping
+
+### Problem 1:
+
+Go to the following page [List of U.S. states and territories by population](https://en.wikipedia.org/wiki/List_of_U.S._states_and_territories_by_population) and select the table `State and territory rankings`.
+
+1. Make sure the name of columns and the first row is correct\
+2. Make sure the class of each column is correct\
+3. Replace `__` with `NA`\
+
+```{r}
+library(rvest)
+library(dplyr)
+library(stringr)
+library(janitor) 
+```
+
+```{r}
+#load the website page
+url <- "https://en.wikipedia.org/wiki/List_of_U.S._states_and_territories_by_population"
+page <- read_html(url)
+
+# extract the tables from the page
+tables <- page |> html_table(fill = TRUE)
+
+# select the correct table, state and territory rankings
+raw_table <- tables[[1]]
+
+# makes sure that the name of the columns in the first row are correct, sets the column names properly and then removes first row from the actual data
+colnames(raw_table) <- raw_table[1, ]
+cleaned_table <- raw_table[-1, ]
+
+# clean column names to remove duplicates so we can properly use mutate across everything 
+cleaned_table <- cleaned_table|>janitor::clean_names()
+
+# replace the __ with NAs
+cleaned_table <- cleaned_table|>
+  mutate(across(everything(), ~ na_if(.x, "__")))
+
+head(cleaned_table)
+
+```
+
+## SQL
+
+Please download a duck database.  <https://data-science-master.github.io/lectures/data/flights.duckdb>
+
+-   Use `duckdb()` and `DBI::dbConnect()` to create a connection to "flights.duckdb".
+```{r}
+library(DBI)
+library(duckdb)
+```
+
+```{r}
+practcon<- dbConnect(duckdb(dbdir = "flights.duckdb", read_only = FALSE))
+```
+
+-   `dbConnect()`: This function establishes a connection to a database.
+
+-   `duckdb()`: Specifies you are connecting to a DuckDB database, which is an embedded analytical SQL database.
+
+-   `dbdir = "flights.duckdb"`: This tells DuckDB to store the database in a file called flights.duckdb. If the file doesn't exist, it will be created.
+
+-   `read_only = FALSE`: This means you are allowing the database to be modified. If you set this to TRUE, the database would be read-only, meaning you could only query data but not make changes to it.
+
+-   So, setting `read_only = FALSE` is necessary if you want to add, update, or delete data in the database.
+
+-   You can see the object `practcon` in the "Global Environment" indicating the connection profile has been established to the database.
+
+-   Check is the connection has established
+
+Yes the connection was established.
+```{r}
+dbIsValid(practcon)
+```
+
+Please note that a basic SQL code chunk looks like this (put SQL code between the chunks):
+
+```{r, echo = FALSE, comment = ""}
+    codechunk <- "```{sql, connection=con}\n\n```"
+    writeLines(codechunk)
+```
+
+Print out a summary of the tables in this database.
+
+```{sql, connection=practcon, echo=FALSE, eval=FALSE}
+    DESCRIBE;
+```
+
+```{r}
+#this code will provide a summary of the tables in the data base
+dbListTables(practcon)
+```
+
+
+-   Answer the following question using SQL.
+
+### Problem 2: Select Flights from a Specific Carrier
+
+Write a SQL query to find all flights from the carrier "United Air Lines Inc.".
+
+
+### Problem 3: Count the Number of Flights for Each Carrier
+
+Write a SQL query to count the total number of flights for each carrier.
+
+
+## Remember to Close the connection When You Are Done
+
+ - if the connection is open then you need to use `dbDisconnect()` function
