@@ -122,17 +122,32 @@ Print out a summary of the tables in this database.
 dbListTables(practcon)
 ```
 
-
 -   Answer the following question using SQL.
  
 ### Problem 2: Select Flights from a Specific Carrier
 
 Write a SQL query to find all flights from the carrier "United Air Lines Inc.".
 
+```{sql, connection=practcon}
+--this code chunk will allow me to find the abbreviated carrier name for united air lines from the airlines table
+SELECT * 
+FROM airlines 
+WHERE name = 'United Air Lines Inc.';
+```
+
+```{sql, connection=practcon}
+--this will select all flights from United Air lines inc. 
+SELECT *
+FROM flights
+WHERE carrier = 'UA'
+LIMIT 15;
+```
 
 ### Problem 3: Count the Number of Flights for Each Carrier
 
 Write a SQL query to count the total number of flights for each carrier.
+
+
 
 
 ## Remember to Close the connection When You Are Done
