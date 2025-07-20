@@ -147,7 +147,17 @@ LIMIT 15;
 
 Write a SQL query to count the total number of flights for each carrier.
 
+```{sql, connection=practcon}
 
+SELECT carrier, COUNT(*) AS num_flights
+FROM flights
+GROUP BY carrier;
+
+```
+
+```{r}
+dbDisconnect(practcon, shutdown = TRUE)
+```
 
 
 ## Remember to Close the connection When You Are Done
