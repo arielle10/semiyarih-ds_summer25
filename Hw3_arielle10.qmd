@@ -124,7 +124,7 @@ dbListTables(practcon)
 
 
 -   Answer the following question using SQL.
-
+ 
 ### Problem 2: Select Flights from a Specific Carrier
 
 Write a SQL query to find all flights from the carrier "United Air Lines Inc.".
