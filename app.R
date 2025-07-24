@@ -24,7 +24,7 @@ hr(),
   selectInput(inputId = "boxplot_y", label = "Boxplot: Choose a continuous variable (Y-axis)",
   choices = c("mpg", "hp", "wt", "qsec"), selected = "mpg"),
       
-    selectInput( inputId = "boxplot_x", label = "Boxplot: Choose a discrete grouping variable (X-axis)",
+    selectInput( inputId = "boxplot_x", label = "Boxplot: Choose a discrete variable (X-axis)",
     choices = c("cyl", "gear", "carb", "am", "vs"), selected = "cyl"),
       
 hr(),
@@ -69,7 +69,7 @@ discrete_vars <- c("cyl", "gear", "carb", "vs", "am")
 continuous_vars <- setdiff(names(mtcars), discrete_vars)
   
 #this will generate the data table for the data tab showing the variables the user selected
-#req(input$vars requires that at least one variable is selected)
+#req(input$vars) requires that at least one variable is selected
 
 output$data_table <- renderTable({req(input$vars)
   mtcars[, input$vars, drop = FALSE]})
