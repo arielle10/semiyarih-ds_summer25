@@ -91,7 +91,7 @@ bing <- get_sentiments("bing")
 ```
 
 ```{r}
-#NRC joy words
+#NRC joy words, joins with emmas text
 emma_nrc_joy <- emma_words |>
   inner_join(nrc |> 
                filter(sentiment == "joy"), by = "word")
@@ -100,7 +100,7 @@ head(emma_nrc_joy)
 ```
 
 ```{r}
-#AFIN positive score above 1
+#AFIN positive score above 1, joins with emmas text
 emma_afinn_pos <- emma_words|>
   inner_join(afinn|> 
                filter(value >= 1), by = "word")
@@ -109,8 +109,7 @@ head(emma_afinn_pos)
 ```
 
 ```{r}
-#BING positive 
-
+#BING positive, joins with emmas text 
 emma_bing_pos <- emma_words|>
   inner_join(bing |>
                filter(sentiment == "positive"), by= "word")
@@ -118,7 +117,6 @@ emma_bing_pos <- emma_words|>
 head(emma_bing_pos)
 ```
 
-     
    * Join each with *Emma*'s text and:
 
      * Count word frequency.
@@ -183,19 +181,21 @@ ggplot(bing_freq, aes(x= reorder(word,n), y=n))+
 
 ```
 
+```{r}
+#NRC word cloud
 
+wordcloud(words= emma_nrc_counts$word, freq = emma_nrc_counts$n, min.freq= 20,
+          colors= sample(colors(),40), random.order = FALSE)
 
+#AFINN word cloud 
+wordcloud(words= emma_afinn_counts$word, freq = emma_afinn_counts$n, min.freq= 20,
+          colors= sample(colors(),40), random.order = FALSE)
 
+#BING word cloud
+wordcloud(words= emma_bing_counts$word, freq = emma_bing_counts$n, min.freq= 20,
+          colors= sample(colors(),40), random.order = FALSE)
+```
 
-4. **Push to GitHub** 
-
-   * Push your complete R script (`.R` file) to a **GitHub repository**.
-   * Your script should include:
-
-     * Data wrangling
-     * Sentiment filtering and joins
-     * Visualization code
-   * You must include **at least 5 meaningful commits** to document your workflow.
 
 
 
