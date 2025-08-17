@@ -123,7 +123,6 @@ head(emma_bing_pos)
 
      * Count word frequency.
      * Filter for frequently occurring words (`n > 50`).
-     * Visualize using a **bar chart** (`ggplot2`) and a **word cloud** (`wordcloud`).
 
 ```{r}
 #count of word frequency for each lexicon
@@ -161,6 +160,32 @@ head(nrc_freq)
 head(afinn_freq)
 head(bing_freq)
 ```
+
+* Visualize using a **bar chart** (`ggplot2`) and a **word cloud** (`wordcloud`).
+
+```{r}
+#addition of reorder so the bar chart is by frequency not alphabetical 
+
+#NRC Bar chart
+ggplot(nrc_freq, aes(x = reorder(word, n), y = n)) +
+  geom_col(fill = "steelblue") +
+  labs(title = "NRC Joy Words in Emma (n > 50)",x = "Word", y = "Frequency")
+
+#AFINN Bar chart
+ggplot(afinn_freq, aes(x= reorder(word,n), y=n))+
+  geom_col(fill= "plum")+
+  labs(title= "AFINN Positive Words in Emma (n >50)", x= "Word", y= "Frequency")
+
+#BING Bar Chart
+ggplot(bing_freq, aes(x= reorder(word,n), y=n))+
+  geom_col(fill= "gold2")+
+  labs(title= "BING Positive Words in Emma (n >50)", x= "Word", y= "Frequency")
+
+```
+
+
+
+
 
 4. **Push to GitHub** 
 
