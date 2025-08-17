@@ -24,7 +24,7 @@ Complete the following exercises using the appropriate packages in R. Ensure tha
 3.  Provide detailed explanations for your approach.
 4.  Submit the rendered HTML file.
 
-install.packages("textdata")
+install.packages("wordcloud")
 
 ```{r}
 #load necessary libraries
@@ -33,7 +33,8 @@ library(dplyr)
 library(stringr)       
 library(tidytext)  
 library(textdata)
-
+library(ggplot2)
+library(wordcloud)
 ```
 
 ####  **Objective**:
@@ -123,6 +124,43 @@ head(emma_bing_pos)
      * Count word frequency.
      * Filter for frequently occurring words (`n > 50`).
      * Visualize using a **bar chart** (`ggplot2`) and a **word cloud** (`wordcloud`).
+
+```{r}
+#count of word frequency for each lexicon
+
+#NRC
+emma_nrc_counts <- emma_nrc_joy |>
+  count(word, sort = TRUE)
+
+#AFINN
+emma_afinn_counts <- emma_afinn_pos |>
+  count(word, sort =TRUE)
+
+#BING
+emma_bing_counts <- emma_bing_pos |>
+  count(word, sort =TRUE)
+
+head(emma_nrc_counts)
+head(emma_afinn_counts)
+head(emma_bing_counts)
+```
+
+```{r}
+#filter frequently occuring words n>50
+
+nrc_freq <-emma_nrc_counts |>
+  filter(n > 50)
+
+afinn_freq <- emma_afinn_counts |>
+  filter(n>50)
+
+bing_freq <-  emma_bing_counts|>
+  filter(n > 50)
+
+head(nrc_freq)
+head(afinn_freq)
+head(bing_freq)
+```
 
 4. **Push to GitHub** 
 
