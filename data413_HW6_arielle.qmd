@@ -24,7 +24,7 @@ Complete the following exercises using the appropriate packages in R. Ensure tha
 3.  Provide detailed explanations for your approach.
 4.  Submit the rendered HTML file.
 
-install.packages("tidytext")
+install.packages("textdata")
 
 ```{r}
 #load necessary libraries
@@ -32,6 +32,7 @@ library(janeaustenr)
 library(dplyr)         
 library(stringr)       
 library(tidytext)  
+library(textdata)
 
 ```
 
@@ -70,10 +71,8 @@ head(emma_data, 15)
 #unnest will tokenize the text into words, new column
 emma_words <- emma_data |> unnest_tokens(word, text) 
 
-
 head(emma_words, 15) 
 ```
-
 
 3. **Sentiment Analysis** 
 
@@ -82,6 +81,27 @@ head(emma_words, 15)
      * `nrc` (joy)
      * `afinn` (positive scores ≥ 1)
      * `bing` (positive)
+```{r}
+#load the required lexicons
+nrc <- get_sentiments("nrc")      
+```
+
+```{r}
+#NRC joy words
+emma_nrc_joy <- emma_words |>
+  inner_join(nrc |> filter(sentiment == "joy"), by = "word")
+
+head(emma_nrc_joy)
+
+```
+
+     
+     
+     
+     
+     
+     
+     
    * Join each with *Emma*'s text and:
 
      * Count word frequency.
