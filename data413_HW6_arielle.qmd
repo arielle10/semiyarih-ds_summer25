@@ -45,13 +45,6 @@ Use the **`tidytext`** package and three different **sentiment lexicons** (`nrc`
 1. **Data Preparation** 
 
    * Load the `austen_books()` dataset from the **`janeaustenr`** package.
-   
-```{r}
-#emma book data set
-emma_data <- austen_books()
-
-```
-
    * Group by book and detect chapter boundaries using regex.
    * Create `linenumber` and `chapter` columns.
    
@@ -73,6 +66,14 @@ head(emma_data, 15)
 
    * Use `unnest_tokens()` to tokenize text into individual words.
    
+```{r}
+#unnest will tokenize the text into words, new column
+emma_words <- emma_data |> unnest_tokens(word, text) 
+
+
+head(emma_words, 15) 
+```
+
 
 3. **Sentiment Analysis** 
 
