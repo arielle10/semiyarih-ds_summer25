@@ -81,26 +81,42 @@ head(emma_words, 15)
      * `nrc` (joy)
      * `afinn` (positive scores ≥ 1)
      * `bing` (positive)
+     
 ```{r}
 #load the required lexicons
-nrc <- get_sentiments("nrc")      
+nrc <- get_sentiments("nrc")  
+afinn <- get_sentiments("afinn")
+bing <- get_sentiments("bing")   
 ```
 
 ```{r}
 #NRC joy words
 emma_nrc_joy <- emma_words |>
-  inner_join(nrc |> filter(sentiment == "joy"), by = "word")
+  inner_join(nrc |> 
+               filter(sentiment == "joy"), by = "word")
 
 head(emma_nrc_joy)
-
 ```
 
-     
-     
-     
-     
-     
-     
+```{r}
+#AFIN positive score above 1
+emma_afinn_pos <- emma_words|>
+  inner_join(afinn|> 
+               filter(value >= 1), by = "word")
+
+head(emma_afinn_pos)
+```
+
+```{r}
+#BING positive 
+
+emma_bing_pos <- emma_words|>
+  inner_join(bing |>
+               filter(sentiment == "positive"), by= "word")
+
+head(emma_bing_pos)
+```
+
      
    * Join each with *Emma*'s text and:
 
